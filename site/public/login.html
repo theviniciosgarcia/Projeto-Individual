@@ -7,7 +7,7 @@
     <title>SCCP | Login</title>
 
     <link rel="stylesheet" href="cadastro.css">
-    <link rel="stylesheet" href="game.html">
+    <link rel="stylesheet" href="mural.html">
     <script src="./js/funcoes.js "></script>
 </head>
 <body>
@@ -51,6 +51,12 @@
 
         <div id="div_erros_login">
     </div>
+    <div class="bannerImg">
+        <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+                <span id="mensagem_erro"></span>
+            </div>
+        </div>
 </body>
 </html>
 
@@ -98,7 +104,7 @@
                 sessionStorage.ID_USUARIO = json.idUsuario;
 
                 setTimeout(function () {
-                    window.location = "game.html";
+                    window.location = "./aviso/mural.html";
                 }, 1000); // apenas para exibir o loading
 
             });

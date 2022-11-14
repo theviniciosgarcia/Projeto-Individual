@@ -220,3 +220,41 @@ select {
     color: #fff;
     cursor: pointer;
 }
+
+/* Mensagem erro */
+
+.alerta_erro {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.card_erro {
+    display: none;
+    background-color: #9A0101;
+    color: #fff;
+    width: 20%;
+    position: fixed;
+    border-radius: 4px;
+    border: #222222 3px solid;
+    padding: 10px;
+    margin-right: 10%;
+}
+
+.card_erro #mensagem_erro {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.formulario .tipo_campo {
+    font-size: 20px;
+    font-weight: 600 !important;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+}
+
+.divAguardar {
+    display: none;
+}

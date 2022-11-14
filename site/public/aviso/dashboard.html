@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCCP | Dashboard</title>
+    <link rel="stylesheet" href="dashboards.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+       canvas {
+              -moz-user-select: none;
+              -webkit-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+          }
+    </style>
+</head>
+<body>
+    <div class="dashGeral">
+        <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+        <section style="width: 80%;">
+            <canvas id="Clube"></canvas>
+        </section> 
+        <section style="width: 80%;">
+            <canvas id="TipoTorcedor"></canvas>
+        </section>   
+    </div>
+</body>
+</html>
+
+<script>
+       b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    
+    let proximaAtualizacao;
+        
+    window.onload = obterDadosGrafico(), obterDadosGraficoClube();
+
+    verificar_autenticacao();
+
+
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function obterDadosGrafico() {
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/ultimas/`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta) {
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [
+            "Tipo de Torcedores"
+        ];
+        
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Louco',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: '#000',
+                tension: 0.1
+            },
+            {
+                label: 'Fanático',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(199, 52, 52)',
+                backgroundColor: 'rgb(199, 52, 52)',
+                tension: 0.1
+            },
+
+            {
+                label: 'Comum',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(199, 234, 52)',
+                backgroundColor: 'rgb(199, 234, 52)',
+                tension: 0.1
+            }]
+        };
+        
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+        
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.louco);
+            dados.datasets[1].data.push(registro.fanatico);
+            dados.datasets[2].data.push(registro.comum);
+        }
+        
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+        
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById('TipoTorcedor'),
+            config
+        );
+    }
+
+
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function obterDadosGraficoClube() {
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/Clube`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoClube(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGraficoClube(resposta) {
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [
+            "Clubes"
+        ];
+        
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Corinthians',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(1, 3, 3)',
+                backgroundColor: 'rgb(1, 3, 3)',
+                tension: 0.1
+            },
+            {
+                label: 'Santos',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(196, 196, 196))',
+                backgroundColor: 'rgb(196, 196, 196))',
+                tension: 0.1
+            },
+            {
+                label: 'São Paulo',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(251, 52, 52)',
+                backgroundColor: 'rgb(255, 52, 52)',
+                tension: 0.1
+            },
+
+            {
+                label: 'Sem Mundial',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(32, 234, 196))',
+                backgroundColor: 'rgb(32, 234, 196))',
+                tension: 0.1
+            },
+
+            {
+                label: 'Outro',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(22, 3, 46))',
+                backgroundColor: 'rgb(23, 3, 46))',
+                tension: 0.1
+            }]
+        };
+        
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+        
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.corinthians);
+            dados.datasets[1].data.push(registro.santos);
+            dados.datasets[2].data.push(registro.sao_paulo);
+            dados.datasets[3].data.push(registro.sem_mundial);
+            dados.datasets[4].data.push(registro.outro);
+        }
+        
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+        
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById('Clube'),
+            config
+        );
+    }
+</script>

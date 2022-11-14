@@ -2,6 +2,7 @@
 
 body {
     overflow-x: hidden;
+    margin: 0%;
 }
 
 nav {
@@ -50,12 +51,6 @@ button {
     background-color: black;
 }
 
-/*Poster Inicial do site*/
-
-.posterInicial img {
-    width: 100vw;
-}
-
 /* Terceira Tela */
 
 .geral3 {
@@ -65,6 +60,7 @@ button {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: 0%;
 }
 
 .topico {
