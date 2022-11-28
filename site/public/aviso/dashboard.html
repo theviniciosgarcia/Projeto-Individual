@@ -17,13 +17,37 @@
     </style>
 </head>
 <body>
-        <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-        <section style="width: 50%;">
-            <canvas id="Clube"></canvas>
-        </section> 
-        <section style="width: 80%;">
-            <canvas id="TipoTorcedor"></canvas>
-        </section>
+    <nav>
+        <div class="containerDash">
+            <div class="navDash">
+                <div class="logoDash">
+                    <a href="game.html"><img src="../assets/corinthians-logo.png"></a>
+                </div>
+                <div class="navegacaoDash">
+                    <a class="btnLogin" href="login.html">Login</a>
+                    <a class="preto" href="cadastro.html">Cadastrar</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <div class="geralDash">
+            <div class="geralTextoDash">
+                <div class="textoDash">
+                    <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+                    <h3>Aqui esta as métricas dos clubes dos nossos respectivos usuarios e o tipo de torcedor que eles são!</h3>
+                </div>
+            </div>
+            <div class="graficosDash">
+                <section style="width: 40%; height: 80%;">
+                    <canvas id="Clube"></canvas>
+                </section>
+                    <section style="width: 40%;">
+                        <canvas id="TipoTorcedor"></canvas>
+                    </section>
+            </div>
+        </div>
+    </header>
 </body>
 </html>
 
@@ -107,6 +131,15 @@
                 borderColor: 'rgb(199, 234, 52)',
                 backgroundColor: 'rgb(199, 234, 52)',
                 tension: 0.1
+            },
+
+            {
+                label: 'Nenhum',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(154, 14, 52)',
+                backgroundColor: 'rgb(154, 14, 52)',
+                tension: 0.1
             }]
         };
         
@@ -117,7 +150,6 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            labels.push(registro.momento_grafico);
             dados.datasets[0].data.push(registro.louco);
             dados.datasets[1].data.push(registro.fanatico);
             dados.datasets[2].data.push(registro.comum);
@@ -137,7 +169,7 @@
             data: dados,
 
             options: {
-                indexAxis: 'y',
+                indexAxis: 'x',
                 scales: {
                     y: {
                         beginAtZero: true
@@ -198,7 +230,6 @@
         // Criando estrutura para plotar gráfico - labels
         let labels = [
             'Clubes',
-            ''
         ];
         
         // Criando estrutura para plotar gráfico - dados
@@ -257,7 +288,6 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            labels.push(registro.momento_grafico);
             dados.datasets[0].data.push(registro.corinthians);
             dados.datasets[1].data.push(registro.santos);
             dados.datasets[2].data.push(registro.sao_paulo);
@@ -278,7 +308,7 @@
             type: 'bar',
             data: dados,
             options: {
-                indexAxis: 'y',
+                indexAxis: 'x',
                 scales: {
                     y: {
                         beginAtZero: true

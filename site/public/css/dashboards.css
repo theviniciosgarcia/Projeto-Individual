@@ -2,11 +2,89 @@
 
 *,
 body {
+  margin: 0%;
   font-family: "Exo 2", sans-serif;
 }
 
-canvas {
+nav {
+  background-color: black;
+  height: 13vh;
+  width: 100vw;
+  position: fixed;
+  border: solid 2px white;
+  position: fixed;
+  z-index: 10;
+}
 
+header {
+  background-color: #9F9D9D;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+
+a {
+  color: white;
+}
+
+.containerDash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navDash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoDash {
+  height: 12vh;
+  width: 85vw;
+  display: flex;
+  justify-content: flex-start;
+}
+
+a img {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.navegacaoDash {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+}
+
+button {
+  background-color: black;
+}
+
+.geralDash {
+  height: 60%;
+  width: 100%;
+  margin-top: 15%;
+}
+
+.textoDash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.geralTextoDash {
+  margin-bottom: 5%;
+}
+
+.graficosDash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-left {

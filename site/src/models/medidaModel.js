@@ -6,17 +6,21 @@ function buscarUltimasMedidas() {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `select count(tipo_torcedor) as louco,(select count(tipo_torcedor) 
-        as fanatico from usuario where tipo_torcedor = 'fanatico') 
+        as fanatico from times where tipo_torcedor = 'fanatico') 
         as fanatico, (select count(tipo_torcedor) 
-        as comum from usuario where tipo_torcedor = 'comum') 
-        as comum from usuario where tipo_torcedor = 'louco'`;
+        as comum from times where tipo_torcedor = 'comum') 
+        as comum, (select count(tipo_torcedor) 
+        as nenhum from times where tipo_torcedor = 'nenhum')
+        as nenhum from times where tipo_torcedor = 'louco';`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `select count(tipo_torcedor) as louco,(select count(tipo_torcedor) 
-        as fanatico from usuario where tipo_torcedor = 'fanatico') 
+        as fanatico from times where tipo_torcedor = 'fanatico') 
         as fanatico, (select count(tipo_torcedor) 
-        as comum from usuario where tipo_torcedor = 'comum') 
-        as comum from usuario where tipo_torcedor = 'louco'`;
+        as comum from times where tipo_torcedor = 'comum') 
+        as comum, (select count(tipo_torcedor) 
+        as nenhum from times where tipo_torcedor = 'nenhum')
+        as nenhum from times where tipo_torcedor = 'louco';`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -32,25 +36,30 @@ function obterDadosGraficoClube() {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `select count(clube) as corinthians, (select count(clube) 
-        as santos from usuario where clube = 'santos')
+        as santos from times where clube = 'santos')
         as santos, (select count(clube) 
-        as sao_paulo from usuario where clube = 'sao_paulo')
+        as sao_paulo from times where clube = 'sao_paulo')
         as sao_paulo, (select count(clube) 
-        as palmeiras from usuario where clube = 'palmeiras') 
+        as palmeiras from times where clube = 'palmeiras') 
         as palmeiras, (select count(clube) 
-        as outro from usuario where clube = 'outro') 
-        as outro from usuario where clube = 'corinthians'`;
+        as outro from times where clube = 'outro') 
+        as outro, (select count(clube)
+        as nenhum from times where clube = 'nenhum')
+        as nenhum from times where clube = 'corinthians';`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `select count(clube) as corinthians, (select count(clube) 
-        as santos from usuario where clube = 'santos')
+        as santos from times where clube = 'santos')
         as santos, (select count(clube) 
-        as sao_paulo from usuario where clube = 'sao_paulo')
+        as sao_paulo from times where clube = 'sao_paulo')
         as sao_paulo, (select count(clube) 
-        as palmeiras from usuario where clube = 'palmeiras') 
+        as palmeiras from times where clube = 'palmeiras') 
         as palmeiras, (select count(clube) 
-        as outro from usuario where clube = 'outro') 
-        as outro from usuario where clube = 'corinthians'`;
+        as outro from times where clube = 'outro') 
+        as outro, (select count(clube)
+        as nenhum from times where clube = 'nenhum')
+        as nenhum from times where clube = 'corinthians'`;
+        
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return

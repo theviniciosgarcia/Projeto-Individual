@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/sobre.css">
-    <title>Document</title>
+    <title>SCCP | Time</title>
 </head>
 <body>
     <div class="containerTorcedor">
@@ -30,6 +30,9 @@
                             <option value="outro">
                                 Outro
                             </option>
+                            <option value="nenhum">
+                                Nenhum
+                            </option>
                         </select>
                         <ul>2 - Qual Tipo de Torcedor Você é: </ul>
                         <select id="Torcedor">
@@ -42,11 +45,14 @@
                             <option value="comum">
                                 Comum
                             </option>
+                            <option value="nenhum">
+                                Nenhum
+                            </option>
                         </select>
                         <div class="home">
                             <a href="index.html">Home</a>
                             <div class="botaoSobre">
-                                <a href="login.html"><button onclick="cadastrar()">Continuar</button></a>
+                                <button onclick="cadastrar_info()">Continuar</button>
                               </div>
                         </div>
                     </div>
@@ -55,3 +61,66 @@
     </div>
 </body>
 </html>
+
+<script>
+    function cadastrar_info() {
+    //  aguardar();
+ 
+     //Recupere o valor da nova input pelo nome do id
+     // Agora vá para o método fetch logo abaixo
+     var nomeVar = localStorage.getItem('nome');
+     var sobrenomeVar = localStorage.getItem('sobrenome');
+     var emailVar = localStorage.getItem('email');
+     var senhaVar = localStorage.getItem('senha');
+     var timeVar = Time.value;
+     var torcedorVar = Torcedor.value;
+ 
+     if (nomeVar == "" || sobrenomeVar == "" || emailVar == "" || senhaVar == "" || timeVar == "" || torcedorVar == "") {
+         cardErro.style.display = "block"
+         mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+ 
+        //  finalizarAguardar();
+         return false;
+     }
+     else {
+     }
+ 
+     // Enviando o valor da nova input
+     fetch("/usuarios/cadastrar", {
+         method: "POST",
+         headers: {
+             "Content-Type": "application/json"
+         },
+         body: JSON.stringify({
+             // crie um atributo que recebe o valor recuperado aqui
+             // Agora vá para o arquivo routes/usuario.js
+             nomeServer: nomeVar,
+             sobrenomeServer: sobrenomeVar,
+             emailServer: emailVar,
+             senhaServer: senhaVar,
+             timeServer: timeVar,
+             torcedorServer: torcedorVar
+         })
+     }).then(function (resposta) {
+ 
+         console.log("resposta: ", resposta);
+ 
+         if (resposta.ok) {
+ 
+             setTimeout(() => {
+                 window.location = "login.html";
+             }, "2000")
+             
+            //  limparFormulario();
+            //  finalizarAguardar();
+         } else {
+             throw ("Houve um erro ao tentar realizar o cadastro!");
+         }
+     }).catch(function (resposta) {
+         console.log(`#ERRO: ${resposta}`);
+        //  finalizarAguardar();
+     });
+ 
+     return false;
+ }
+ </script>
