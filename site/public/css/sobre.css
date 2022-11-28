@@ -1,0 +1,95 @@
+body {
+    background-image: url("../assets/video_tela_sobre_AdobeExpress.gif");
+    background-size: cover;
+}
+
+.containerTorcedor img {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.geralPerguntas {
+    display: flex;
+    justify-content: center;
+}
+
+.containerPerguntas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #9f9d9da8;
+    height: 90vh;
+    width: 50vw;
+    border-radius: 25px;
+    margin-top: 5%;
+}
+
+.perguntas img {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction:column-reverse;
+    height: 15%;
+    width: 15%;
+}
+
+.perguntas ul {
+    color: rgb(0, 0, 0);
+    font-size: 150%;
+    z-index: 10;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+select {
+    position: relative;
+    display: flex;
+    width: 28em;
+    height: 6em;
+    line-height: 3;
+    background: rgba(92, 16, 16, 0.945);
+    overflow: hidden;
+    border-radius: .30em;
+}
+
+select {
+    flex: 5;
+    padding: 0 .7em;
+    color: #fff;
+    cursor: pointer;
+    font-size: 100%;
+}
+
+.home a {
+    font-size: 100%;
+    color: black;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 10%;
+}
+
+.home {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+}
+
+.botaoSobre {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 8%;
+    margin-left: 5%;
+}
+
+button {
+    background-color: rgb(119, 0, 0);
+}

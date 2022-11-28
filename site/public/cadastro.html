@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCCP | Cadastre-se</title>
-    <link rel="stylesheet" href="cadastro.css">
+    <link rel="stylesheet" href="./css/cadastro.css">
     <script src="./js/funcoes.js"></script>
 </head>
 <body>
@@ -20,43 +20,11 @@
               <div class="textoReleway titulo vermelho">Cadastre-se</div>
               <div class="info">
                 
-                <input type="text" placeholder="Nome" id="Nome" />
-                <input type="text" placeholder="Sobrenome" id="Sobrenome" />
-                <input type="text" placeholder="Email" id="Email" />
-                <input type="password" placeholder="Senha" id="senha" />
-                <input type="password" placeholder="Repetir Senha" id="confirmaSenha" />
-
-                <select id="Time">
-                    <option selected disabled>Time do Coração</option>
-                    <option value="corinthians">
-                        Corinthians
-                    </option>
-                    <option value="santos">
-                        Santos
-                    </option>
-                    <option value="sao_paulo">
-                        São Paulo
-                    </option>
-                    <option value="sem_mundial">
-                        Sem Mundial
-                    </option>
-                    <option value="outro">
-                        Outro
-                    </option>
-                </select>
-
-                <select id="Torcedor">
-                    <option selected disabled>Tipo de Torcedor</option>
-                    <option value="louco">
-                        Louco
-                    </option>
-                    <option value="fanatico">
-                        Fanatico
-                    </option>
-                    <option value="comum">
-                        Comum
-                    </option>
-                </select>
+                <input type="text" placeholder="Nome" id="Nome" required/>
+                <input type="text" placeholder="Sobrenome" id="Sobrenome" required/>
+                <input type="text" placeholder="Email" id="Email" required/>
+                <input type="password" placeholder="Senha" id="senha" required/>
+                <input type="password" placeholder="Repetir Senha" id="confirmaSenha" required/>
     
                 <div class="esqueceSenha">
                   <label for="verSenha" class=" container textoReleway subTitulo">
@@ -69,7 +37,7 @@
                 <div style="height: 1vw;  font-size: 1vw;" id="msgErro" class="textoReleway"></div>
               <div class="logar">
                 <div class="botao">
-                  <a href="login.html" class="textoReleway subTitulo ">Log In</a>
+                  <a href="sobre.html" class="textoReleway subTitulo ">Log In</a>
                   <button onclick="cadastrar()">Continuar</button>
                 </div>
               </div>

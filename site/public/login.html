@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCCP | Login</title>
 
-    <link rel="stylesheet" href="cadastro.css">
+    <link rel="stylesheet" href="./css/cadastro.css">
     <link rel="stylesheet" href="mural.html">
     <script src="./js/funcoes.js "></script>
 </head>
@@ -21,15 +21,14 @@
                 <div class="espaco">
                     <div class="textoReleway titulo vermelho">Login</div>
                     <div class="info2">
-                        <input id="Email" type="text" placeholder="Email">
+                        <input id="Email" type="text" placeholder="Email" required/>
 
-                        <input id="Senha" type="password" placeholder="Senha">
+                        <input id="Senha" type="password" placeholder="Senha" required/>
 
                         <div class="esqueceSenha">
                             <label for="verSenha" class=" containerReleway subTitulo">
                                 <span class="checkmark"></span>
                             </label>
-                            <span class="textoReleway subTexto vermelho">Esqueceu a Senha?</span>
                         </div>
 
                         <span class="textoReleway subTexto">Corinthians não é só um clube, é um estado de espirito</span>
@@ -45,18 +44,17 @@
                 </div>
             </div>
         </div>
+        </div>
         <div id="div_aguardar" class="divAguardar">
-            <img src="./assets/img/fita.webp" id="loading-gif" >
         </div>
-
-        <div id="div_erros_login">
     </div>
-    <div class="bannerImg">
-        <div class="alerta_erro">
-            <div class="card_erro" id="cardErro">
-                <span id="mensagem_erro"></span>
-            </div>
-        </div>
+    <div id="div_erros_login">
+</div>
+        <div class="bannerImg">
+            <div class="alerta_erro">
+                <div class="card_erro" id="cardErro">
+                    <span id="mensagem_erro"></span>
+                </div>
 </body>
 </html>
 

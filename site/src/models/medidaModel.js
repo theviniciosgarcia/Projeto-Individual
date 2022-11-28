@@ -36,8 +36,8 @@ function obterDadosGraficoClube() {
         as santos, (select count(clube) 
         as sao_paulo from usuario where clube = 'sao_paulo')
         as sao_paulo, (select count(clube) 
-        as sem_mundial from usuario where clube = 'sem_mundial') 
-        as sem_mundial, (select count(clube) 
+        as palmeiras from usuario where clube = 'palmeiras') 
+        as palmeiras, (select count(clube) 
         as outro from usuario where clube = 'outro') 
         as outro from usuario where clube = 'corinthians'`;
 
@@ -47,8 +47,8 @@ function obterDadosGraficoClube() {
         as santos, (select count(clube) 
         as sao_paulo from usuario where clube = 'sao_paulo')
         as sao_paulo, (select count(clube) 
-        as sem_mundial from usuario where clube = 'sem_mundial') 
-        as sem_mundial, (select count(clube) 
+        as palmeiras from usuario where clube = 'palmeiras') 
+        as palmeiras, (select count(clube) 
         as outro from usuario where clube = 'outro') 
         as outro from usuario where clube = 'corinthians'`;
     } else {
