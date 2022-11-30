@@ -1,6 +1,25 @@
 /* pagina mural */
 
-*,
+* {
+  font-family: Merriweather, "Regular";
+  margin: 0%;
+}
+
+body::-webkit-scrollbar {
+  width: 12px;        
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(155, 148, 148, 0.7);     
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(22, 22, 22, 0.7); 
+  border-radius: 20px;
+  height: 10%;
+  border: 1vw solid rgba(154, 149, 149, 0.7); 
+}
+
 body {
   margin: 0%;
   font-family: "Exo 2", sans-serif;
@@ -11,17 +30,17 @@ nav {
   height: 13vh;
   width: 100vw;
   position: fixed;
-  border: solid 2px white;
   position: fixed;
   z-index: 10;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 header {
-  background-color: #9F9D9D;
   background-size: cover;
   height: 100%;
   width: 100%;
   position: fixed;
+  background-color: #9F9D9D;
 }
 
 a {
@@ -67,10 +86,17 @@ button {
 .geralDash {
   height: 60%;
   width: 100%;
-  margin-top: 15%;
+  margin-top: 13%;
 }
 
 .textoDash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.totalDash {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,19 +118,28 @@ button {
   justify-content: space-around;
   height: 13vh;
   width: 98vw;
-  border: solid 2px white;
   opacity: 0.8;
   z-index: 10;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 .header-left ul {
   color: white;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
 .header-left a {
   color: white;
+  text-decoration: none;
+}
+
+.centerNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
 }
 
 .dash-geral {
@@ -120,9 +155,16 @@ button {
   justify-content: center;
 }
 
+.columnText {
+  width: 50%;
+  text-align: center;
+}
+
 .hello {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  width: 50%;
+  /* border: solid 3px #860b0b; */
 }
 
 .hello ul {
@@ -138,6 +180,28 @@ button {
 .avisoCaptura {
   display: flex;
   justify-content: center;
+}
+
+.dash-right {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sobreSite {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  /* border: solid 2px #382933; */
+  width: 50%;
+}
+
+.sobreSite ul {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 40px;
+  width: 100%;
+  /* border: solid 2px #860b0b; */
 }
 
 .dash-right .avisos {

@@ -24,8 +24,9 @@
                     <a href="game.html"><img src="../assets/corinthians-logo.png"></a>
                 </div>
                 <div class="navegacaoDash">
-                    <a class="btnLogin" href="login.html">Login</a>
-                    <a class="preto" href="cadastro.html">Cadastrar</a>
+                    <a class="home" href="../index.html">Home</a>
+                    <a class="game" href="../game.html">Game</a>
+                    <a class="aviso" href="../aviso/mural.html">Aviso</a>
                 </div>
             </div>
         </div>
@@ -35,7 +36,7 @@
             <div class="geralTextoDash">
                 <div class="textoDash">
                     <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-                    <h3>Aqui esta as métricas dos clubes dos nossos respectivos usuarios e o tipo de torcedor que eles são!</h3>
+                    <h3>Aqui estão as métricas dos clubes dos nossos respectivos usuarios e o tipo de torcedor que eles são!</h3>
                 </div>
             </div>
             <div class="graficosDash">
@@ -45,6 +46,11 @@
                     <section style="width: 40%;">
                         <canvas id="TipoTorcedor"></canvas>
                     </section>
+            </div>
+            <div class="totalDash">
+                <span>Total de Votos: <span id="total_votacao">0</span></span> <br>
+                <span><span id="torcedor_presente">0</span></span> <br>
+                <span><span id="time_presente">0</span></span> <br>
             </div>
         </div>
     </header>
@@ -57,7 +63,18 @@
     let proximaAtualizacao;
         
     window.onload = obterDadosGrafico(), obterDadosGraficoClube();
+    calcular();
 
+
+           var corinthians = 0;
+           var santos = 0;
+           var sao_paulo = 0;
+           var palmeiras = 0;
+           var outro = 0;
+
+           var louco = 0;
+           var fanatico = 0;
+           var comum = 0;
 
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
@@ -70,6 +87,59 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
+ 
+    function calcular() {
+        var total_torcedor = Number(louco + fanatico + comum);
+        var total_times = Number(corinthians + santos + sao_paulo + palmeiras + outro);
+        var total_votos = (total_times + total_torcedor / 2).toFixed(0);
+
+        // Validando as porcentagens de cada time
+        var total_porcentagem_corinthians = (corinthians / total_times) * 100;
+        var total_porcentagem_santos = (santos / total_times) * 100;
+        var total_porcentagem_sao_paulo = (sao_paulo / total_times) * 100;
+        var total_porcentagem_palmeiras = (palmeiras / total_times) * 100;
+        var total_porcentagem_outro = (outro / total_times) * 100;
+
+        if (total_porcentagem_corinthians > total_porcentagem_santos 
+        && total_porcentagem_corinthians > total_porcentagem_palmeiras 
+        && total_porcentagem_corinthians > total_porcentagem_sao_paulo 
+        && total_porcentagem_corinthians > total_porcentagem_outro) {
+            time_presente.innerHTML = `O time mais presente é o Corinthians com uma presença de: ${total_porcentagem_corinthians.toFixed(0)}%`
+        } 
+        else if (total_porcentagem_santos > total_porcentagem_palmeiras
+        && total_porcentagem_santos > total_porcentagem_sao_paulo
+        && total_porcentagem_santos > total_porcentagem_outro) {
+            time_presente.innerHTML = `O time mais presente é o Santos com uma presença de: ${total_porcentagem_santos.toFixed(0)}%`
+        }
+        else if (total_porcentagem_palmeiras > total_porcentagem_sao_paulo
+        && total_porcentagem_palmeiras > total_porcentagem_outro) {
+            time_presente.innerHTML = `O time mais presente é o Palmeiras com uma presença de: ${total_porcentagem_palmeiras.toFixed(0)}%`
+        }
+        else if (total_porcentagem_sao_paulo > total_porcentagem_outro) {
+            time_presente.innerHTML = `O time mais presente é o São Paulo com uma presença de: ${total_porcentagem_sao_paulo.toFixed(0)}%`
+        }
+        else {
+            time_presente.innerHTML = `O time mais presente são Outros com uma presença de: ${total_porcentagem_outro.toFixed(0)}%`
+        }
+
+        // Total procentagem de cada tipo de torcedor
+        var total_porcentagem_louco = (louco / total_torcedor) * 100;
+        var total_porcentagem_fanatico = (fanatico / total_torcedor) * 100;
+        var total_porcentagem_comum = (comum / total_torcedor) * 100;
+
+        if (total_porcentagem_louco > total_porcentagem_fanatico
+        && total_porcentagem_louco > total_porcentagem_comum) {
+            torcedor_presente.innerHTML = `O torcedor mais presente é o Torcedor Louco com uma presença de: ${total_porcentagem_louco.toFixed(0)}%`
+        }
+        else if (total_porcentagem_fanatico > total_porcentagem_comum) {
+            torcedor_presente.innerHTML = `O torcedor mais presente é o Torcedor Fanatico com uma presença de: ${total_porcentagem_fanatico.toFixed(0)}%`
+        }
+        else {
+            torcedor_presente.innerHTML = `O torcedor mais presente é o Comum com uma presença de: ${total_porcentagem_comum.toFixed(0)}%`
+        }
+
+        total_votacao.innerHTML = `${total_votos}`
+    }
     function obterDadosGrafico() {
 
         if (proximaAtualizacao != undefined) {
@@ -81,6 +151,7 @@
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
+                   
 
                     plotarGrafico(resposta);
                 });
@@ -131,15 +202,6 @@
                 borderColor: 'rgb(199, 234, 52)',
                 backgroundColor: 'rgb(199, 234, 52)',
                 tension: 0.1
-            },
-
-            {
-                label: 'Nenhum',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(154, 14, 52)',
-                backgroundColor: 'rgb(154, 14, 52)',
-                tension: 0.1
             }]
         };
         
@@ -150,6 +212,9 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
+            louco += registro.louco;
+            fanatico += registro.fanatico;
+            comum += registro.comum;
             dados.datasets[0].data.push(registro.louco);
             dados.datasets[1].data.push(registro.fanatico);
             dados.datasets[2].data.push(registro.comum);
@@ -288,6 +353,12 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
+            corinthians += registro.corinthians;
+            santos += registro.santos;
+            sao_paulo += registro.sao_paulo;
+            palmeiras += registro.palmeiras;
+            outro += registro.outro;
+            console.log(corinthians)
             dados.datasets[0].data.push(registro.corinthians);
             dados.datasets[1].data.push(registro.santos);
             dados.datasets[2].data.push(registro.sao_paulo);
@@ -301,6 +372,7 @@
         console.log(labels)
         console.log('Dados:')
         console.log(dados.datasets)
+        calcular()
         console.log('----------------------------------------------')
         
         // Criando estrutura para plotar gráfico - config

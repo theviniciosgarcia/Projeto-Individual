@@ -7,6 +7,10 @@
     <title>SCCP | Cadastre-se</title>
     <link rel="stylesheet" href="./css/cadastro.css">
     <script src="./js/funcoes.js"></script>
+    <script src="./js/cadastrar.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
 <body>
     <div class="cadastro">
@@ -20,11 +24,11 @@
               <div class="textoReleway titulo vermelho">Cadastre-se</div>
               <div class="info">
                 
-                <input type="text" placeholder="Nome" id="Nome" required/>
-                <input type="text" placeholder="Sobrenome" id="Sobrenome" required/>
-                <input type="text" placeholder="Email" id="Email" required/>
-                <input type="password" placeholder="Senha" id="senha" required/>
-                <input type="password" placeholder="Repetir Senha" id="confirmaSenha" required/>
+                <input type="text" placeholder="Nome" id="Nome" />
+                <input type="text" placeholder="Sobrenome" id="Sobrenome" />
+                <input type="text" placeholder="Email" id="Email" onkeyup="validarEmail()" />
+                <input type="password" placeholder="Senha" id="senha" onkeyup="validarForcaSenha()"/>
+                <input type="password" placeholder="Repetir Senha" id="confirmaSenha" onkeyup="validarConfirmarSenha()" />
     
                 <div class="esqueceSenha">
                   <label for="verSenha" class=" container textoReleway subTitulo">
@@ -35,16 +39,17 @@
                
               </div> <span class="textoReleway subTexto">O Campeão dos campeões</span><br>
                 <div style="height: 1vw;  font-size: 1vw;" id="msgErro" class="textoReleway"></div>
+                <div class="styleVerificacao" id="verificar_senha">
+              </div>
               <div class="logar">
                 <div class="botao">
-                  <a href="sobre.html" class="textoReleway subTitulo ">Log In</a>
+                  <a href="login.html" class="textoReleway subTitulo ">Log In</a>
                   <button onclick="cadastrar()">Continuar</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       <div class="bannerImg">
         <div class="alerta_erro">
             <div class="card_erro" id="cardErro">
@@ -60,13 +65,46 @@
 
 <script>
  function cadastrar() {
-    if (Nome.value == '' && Sobrenome.value == '' && Email.value == '' && senha.value == '' && confirmaSenha.value == '') {
-        alert("ERROR!")
+    if (Nome.value == '' || Sobrenome.value == '' || Email.value == '' || senha.value == '' || confirmaSenha.value != senha.value) {
+      const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+            Toast.fire({
+            icon: 'error',
+            title: 'Preencha todos os campos, por favor!'
+})
+ 
     } else {
         localStorage.setItem('nome', Nome.value);
         localStorage.setItem('sobrenome', Sobrenome.value);
         localStorage.setItem('email', Email.value);
         localStorage.setItem('senha', senha.value); 
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+            Toast.fire({
+            icon: 'success',
+            title: 'Cadastro feito com sucesso'
+})
+ 
         setTimeout(function () {
                     window.location = "./sobre.html";
                 }, 1000); // apenas para exibir o loading

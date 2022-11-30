@@ -26,6 +26,11 @@ fkUsuario int,
 foreign key (fkUsuario) references usuario(idUsuario)
 );
 
+insert into times values
+(null, 'outro', 'fanatico', 1);
+
+
+
 select * from usuario;
 select * from comentario;
 select * from times;
@@ -45,9 +50,3 @@ as palmeiras from times where clube = 'palmeiras')
 as palmeiras, (select count(clube) 
 as outro from times where clube = 'outro') 
 as outro from times where clube = 'corinthians';
-
-
-
-
-
-

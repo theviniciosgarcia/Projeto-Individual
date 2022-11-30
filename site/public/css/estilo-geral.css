@@ -6,3 +6,18 @@
   color: white;
   margin: 0%;
 }
+
+body::-webkit-scrollbar {
+  width: 12px;        
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(155, 148, 148, 0.7);     
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(22, 22, 22, 0.7); 
+  border-radius: 20px;
+  height: 10%;
+  border: 1vw solid rgba(154, 149, 149, 0.7); 
+}

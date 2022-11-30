@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/sobre.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <title>SCCP | Time</title>
 </head>
 <body>
@@ -12,59 +15,125 @@
             <div class="geralPerguntas">
                 <div class="containerPerguntas">
                     <div class="perguntas">
-                        <img src="./assets/logotipo-corinthians.png">
-                        <ul> 1 - Qual Time Você Torce: </ul>
-                        <select id="Time">
-                            <option value="corinthians">
-                                Corinthians
-                            </option>
-                            <option value="santos">
-                                Santos
-                            </option>
-                            <option value="sao_paulo">
-                                São Paulo
-                            </option>
-                            <option value="palmeiras">
-                                Palmeiras
-                            </option>
-                            <option value="outro">
-                                Outro
-                            </option>
-                            <option value="nenhum">
-                                Nenhum
-                            </option>
-                        </select>
-                        <ul>2 - Qual Tipo de Torcedor Você é: </ul>
-                        <select id="Torcedor">
-                            <option value="louco">
-                                Louco
-                            </option>
-                            <option value="fanatico">
-                                Fanatico
-                            </option>
-                            <option value="comum">
-                                Comum
-                            </option>
-                            <option value="nenhum">
-                                Nenhum
-                            </option>
-                        </select>
-                        <div class="home">
-                            <a href="index.html">Home</a>
-                            <div class="botaoSobre">
-                                <button onclick="cadastrar_info()">Continuar</button>
-                              </div>
+                        <div class="select1">
+                            <div class="timeReverse">
+                                <ul> 1 - Qual Time Você Torce: </ul>
+                                <select id="Time" onclick="cadastrar_time()">
+                                    <option selected disabled></option>
+                                    <option value="corinthians">
+                                        Corinthians
+                                    </option>
+                                    <option value="santos">
+                                        Santos
+                                    </option>
+                                    <option value="sao_paulo">
+                                        São Paulo
+                                    </option>
+                                    <option value="palmeiras">
+                                        Palmeiras
+                                    </option>
+                                    <option value="outro">
+                                        Outro
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="imgVetorCorinthians" id="corinthians" style="display: none;">
+                                <img src="./assets/logotipo-corinthians.png">
+                            </div>
+                            <div class="imgVetorSantos" id="santos" style="display: none;">
+                                <img src="./assets/logo_santos-removebg-preview.png">
+                            </div>
+                            <div class="imgVetorSP" id="sao_paulo" style="display: none;">
+                                <img src="./assets/sao-paulo-logo.png">
+                            </div>
+                            <div class="imgVetorPalmeiras" id="palmeiras" style="display: none;">
+                                <img src="./assets/escudo_palmeiras-removebg-preview.png">
+                            </div>
+                            <div class="imgVetorOutro" id="outro" style="display: none;">
+                                <img src="./assets/bandeira_branca-removebg-preview.png">
+                            </div>
+                    </div>
+
+                        <div class="select2">
+                            <div class="tipoTorcedor">
+                                <ul>2 - Qual Tipo de Torcedor Você é: </ul>
+                                <select id="Torcedor" onclick="cadastrar_torcedor()">
+                                <option selected disabled></option>
+                                <option value="louco">
+                                    Louco
+                                </option>
+                                <option value="fanatico">
+                                    Fanatico
+                                </option>
+                                <option value="comum">
+                                    Comum
+                                </option>
+                            </select>
                         </div>
+                            <div class="imgVetorLouco" id="louco" style="display: none;">
+                                <img src="./assets/torcedor louco.jpg">
+                            </div>
+                            <div class="imgVetorFanatico" id="fanatico" style="display: none;">
+                                <img src="./assets/torcedor fanatico.jpg">
+                            </div>
+                            <div class="imgVetorComum" id="comum" style="display: none;">
+                                <img src="./assets/torcedor comum.jpg">
+                            </div>
+                          
                     </div>
+                    <div class="home">
+                        <a href="index.html">Home</a>
+                        <div class="botaoSobre">
+                            <button style="color: #FFF;" onclick="cadastrar_info()">Continuar</button>
+                          </div>
                     </div>
+                        </div>
+                        </div>
             </div>
     </div>
 </body>
 </html>
 
 <script>
+    var time_anterior = 0;
+    function cadastrar_time() {
+        var lista_times = [corinthians, santos, sao_paulo, palmeiras, outro];
+        var lista_escolha_time = ['corinthians', 'santos', 'sao_paulo', 'palmeiras', 'outro']
+
+        if (time_anterior >= 0) {
+            lista_times[time_anterior].style.display = 'none'
+        }
+
+        for (var contador = 0; contador < 5; contador++) {
+           if (Time.value == lista_escolha_time[contador]) {
+            lista_times[contador].style.display = 'block';
+            time_anterior = contador; 
+            contador = 6;
+            // contador = 6 para parara estrutura de repetção
+           }
+        }
+    }
+    
+    var torcedor_anterior = 0;
+    function cadastrar_torcedor() {
+        var lista_torcedor = [louco, fanatico, comum];
+        var lista_escolha_torcedor = ['louco', 'fanatico', 'comum']
+
+        if (torcedor_anterior >= 0) {
+            lista_torcedor[torcedor_anterior].style.display = 'none'
+        }
+
+        for (var contador = 0; contador < 3; contador++) {
+           if (Torcedor.value == lista_escolha_torcedor[contador]) {
+            lista_torcedor[contador].style.display = 'block';
+            torcedor_anterior = contador; 
+            contador = 4;
+            // contador = 6 para parara estrutura de repetção
+           }
+        }
+    }
+
     function cadastrar_info() {
-    //  aguardar();
  
      //Recupere o valor da nova input pelo nome do id
      // Agora vá para o método fetch logo abaixo
@@ -76,8 +145,22 @@
      var torcedorVar = Torcedor.value;
  
      if (nomeVar == "" || sobrenomeVar == "" || emailVar == "" || senhaVar == "" || timeVar == "" || torcedorVar == "") {
-         cardErro.style.display = "block"
-         mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+            Toast.fire({
+            icon: 'error',
+            title: 'Preencha todos os campos, por favor!'
+})
  
         //  finalizarAguardar();
          return false;
@@ -106,6 +189,23 @@
          console.log("resposta: ", resposta);
  
          if (resposta.ok) {
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+                })
+
+                Toast.fire({
+                icon: 'success',
+                title: 'Cadastro realizado com sucesso'
+                })
  
              setTimeout(() => {
                  window.location = "login.html";
@@ -114,7 +214,22 @@
             //  limparFormulario();
             //  finalizarAguardar();
          } else {
-             throw ("Houve um erro ao tentar realizar o cadastro!");
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            idOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+            Toast.fire({
+            icon: 'error',
+            title: 'Erro'
+})
          }
      }).catch(function (resposta) {
          console.log(`#ERRO: ${resposta}`);

@@ -9,18 +9,14 @@ function buscarUltimasMedidas() {
         as fanatico from times where tipo_torcedor = 'fanatico') 
         as fanatico, (select count(tipo_torcedor) 
         as comum from times where tipo_torcedor = 'comum') 
-        as comum, (select count(tipo_torcedor) 
-        as nenhum from times where tipo_torcedor = 'nenhum')
-        as nenhum from times where tipo_torcedor = 'louco';`;
+        as comum from times where tipo_torcedor = 'louco';`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `select count(tipo_torcedor) as louco,(select count(tipo_torcedor) 
         as fanatico from times where tipo_torcedor = 'fanatico') 
         as fanatico, (select count(tipo_torcedor) 
         as comum from times where tipo_torcedor = 'comum') 
-        as comum, (select count(tipo_torcedor) 
-        as nenhum from times where tipo_torcedor = 'nenhum')
-        as nenhum from times where tipo_torcedor = 'louco';`;
+        as comum from times where tipo_torcedor = 'louco';`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -43,9 +39,7 @@ function obterDadosGraficoClube() {
         as palmeiras from times where clube = 'palmeiras') 
         as palmeiras, (select count(clube) 
         as outro from times where clube = 'outro') 
-        as outro, (select count(clube)
-        as nenhum from times where clube = 'nenhum')
-        as nenhum from times where clube = 'corinthians';`;
+        as outro from times where clube = 'corinthians';`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `select count(clube) as corinthians, (select count(clube) 
@@ -56,9 +50,7 @@ function obterDadosGraficoClube() {
         as palmeiras from times where clube = 'palmeiras') 
         as palmeiras, (select count(clube) 
         as outro from times where clube = 'outro') 
-        as outro, (select count(clube)
-        as nenhum from times where clube = 'nenhum')
-        as nenhum from times where clube = 'corinthians'`;
+        as outro from times where clube = 'corinthians'`;
         
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
